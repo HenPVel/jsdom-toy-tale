@@ -7,10 +7,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
         event.preventDefault()
         let name =  event.target.name.value
         let image = event.target.image.value
-        let likes = 0
         let toyList = document.querySelector("#toy-collection")
-        let id = toyList.children.length+7
-        let toyMake = {name, image, likes, id }
+        let toyMake = {name, image, likes: 0 }
 
         let configToy= {
             method: "POST",
@@ -60,18 +58,15 @@ let createToys = arrayOfToys => {
 }
 
 function createToy(toyObject){
-   // debugger
   let divElm = document.createElement('div.card')
   divElm.innerHTML = `<h2>${toyObject.name}</h2>
   <img src=${toyObject.image} class="toy-avatar" />
   <p>${toyObject.likes} Likes</p>
   <button class="like-btn">Like <3</button>`
   divElm.setAttribute('data-id' , toyObject.id )
-  let buttonElm = document.querySelector()
+  let buttonElm = divElm.querySelector(".like-btn")
   buttonElm.addEventListener('click', function(event) {
-  let button = event.target
-  let card = button.parentElement()
-  card.likes.innerText = `${toyObject.likes+1} Likes`
+      divElm.querySelector("p").textContent = `${toyObject.likes+1} Likes`
   })
     
   return divElm
