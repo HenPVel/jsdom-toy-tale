@@ -9,12 +9,27 @@ window.addEventListener("DOMContentLoaded", (event) => {
         let image = event.target.image.value
         let likes = 0
         let toyList = document.querySelector("#toy-collection")
-        let id = toyList.children.length+1
-        debugger
+        let id = toyList.children.length+7
         let toyMake = {name, image, likes, id }
+
+        let configToy= {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(toyMake)
+        }
+
+        fetch('http://localhost:3000/toys', configToy)
+        .then(response => response.json())
+        .then(json => json)
+        
+
         toyList.append(createToy(toyMake))
-        debugger
+        
     }  )
+
     fetch('http://localhost:3000/toys')
         .then(getResponse)
         .then(processJSON)
@@ -52,7 +67,13 @@ function createToy(toyObject){
   <p>${toyObject.likes} Likes</p>
   <button class="like-btn">Like <3</button>`
   divElm.setAttribute('data-id' , toyObject.id )
-    //debugger
+  let buttonElm = document.querySelector()
+  buttonElm.addEventListener('click', function(event) {
+  let button = event.target
+  let card = button.parentElement()
+  card.likes.innerText = `${toyObject.likes+1} Likes`
+  })
+    
   return divElm
 
 }
